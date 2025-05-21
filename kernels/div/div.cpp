@@ -80,10 +80,14 @@ mluOpDiv(mluOpHandle_t handle, const mluOpComputationPreference_t prefer,
                                          x_desc->getDtype(), prefer, (void *)x,
                                          (void *)y, (void *)z, element_num));
   } else {
+    // CHECK_RETURN("mluOpDiv",
+    //              Kernel5StagePipelineDiv(k_dim, k_type, handle->queue,
+    //                                      x_desc->getDtype(), prefer, (void *)x,
+    //                                      (void *)y, (void *)z, element_num));
     CHECK_RETURN("mluOpDiv",
-                 Kernel5StagePipelineDiv(k_dim, k_type, handle->queue,
-                                         x_desc->getDtype(), prefer, (void *)x,
-                                         (void *)y, (void *)z, element_num));
+                 Kernel3StagePipelineDiv(k_dim, k_type, handle->queue,
+                              x_desc->getDtype(), prefer, (void *)x,
+                              (void *)y, (void *)z, element_num));
   }
   GEN_CASE_END();
   return MLUOP_STATUS_SUCCESS;
